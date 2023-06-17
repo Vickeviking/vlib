@@ -35,7 +35,7 @@ protected:
 public:
     SparseTable()
     {
-        head = new SparseNode<T>(1, 1, 0, 0, 0);
+        head = new SparseNode<T>(1, 1, 10, 0, 0);
     }
     ~SparseTable();
     void printAll() const;
@@ -44,7 +44,7 @@ public:
     void insertNode(int rowID, int columnID, const T& el);
     void deleteNode(SparseNode<T> *);
     void deleteNode(int rowID, int columnID);
-    T* find(int rowID, int columnID); // find the first node with the given info
+    SparseNode<T>* find(int rowID, int columnID); // find the first node with the given info
 
 };
 
@@ -145,6 +145,7 @@ void SparseTable<T>::insertNode(int rowID, int columnID, const T& el)
     SparseNode<T>* lastRowIDThatWasLower = 0;
     SparseNode<T>* newNode = new SparseNode<T>(rowID, columnID, el, 0, 0);
 
+
     while(currentRow != 0)
     {
 
@@ -234,9 +235,8 @@ void SparseTable<T>::insertNode(int rowID, int columnID, const T& el)
                         temp = temp->nextColumn;
                     }
                 }
-                else
+                else if(columnID < head->columnID)
                     head = newNode;
-
                 newNode->nextColumn = lastColumnIDThatWasLower->nextColumn;
                 if (newNode != head) //nothing to chain it to except head
                     lastColumnIDThatWasLower->nextColumn = newNode;
@@ -247,6 +247,12 @@ void SparseTable<T>::insertNode(int rowID, int columnID, const T& el)
         }
         else
         {
+            //IF ORIGIN
+            if(currentRow == head && currentColumn == head)
+            {
+                head->el = el;
+                return;
+            }
             // COLUMN FOUND
             newNode->nextRow = currentRow->nextRow;
             currentRow->nextRow = newNode;
@@ -270,32 +276,94 @@ void SparseTable<T>::deleteNode(SparseNode<T> * nodeToDelete)
     {
         if(currentRow->rowID != nodeToDelete->rowID)
         {
+            previousRow = currentRow;
             currentRow = currentRow->nextRow;
             continue;
         }
 
-        currentColumn = currentRow->nextColumn;
+        currentColumn = currentRow;
         while (currentColumn != 0)
         {
             if(currentColumn->columnID != nodeToDelete->columnID)
             {
+                previousColumn = currentColumn;
                 currentColumn = currentColumn->nextColumn;
                 continue;
             }
             else
             {
-                // COLUMN FOUND
-                previousColumn->nextColumn = currentColumn->nextColumn;
+                // COLUMN && ROW FOUND
+
+                //is it the head?
+                if(nodeToDelete == head)
+                {
+                    //first see if there is any column after
+                    if(currentColumn->nextColumn != 0)
+                        head = currentColumn->nextColumn;
+                    else if(currentRow->nextRow != 0)
+                        head = currentRow->nextRow;
+                    else
+                        head = 0;
+                    delete nodeToDelete;
+                    return;
+                }
+
+                //Any rows before?
+                if(previousRow == 0) // head
+                    head = currentRow->nextRow;
+                else
+                    previousRow->nextRow = currentRow->nextRow;
+                
+                //Any columns before?
+                if(previousColumn != 0) 
+                    previousColumn->nextColumn = currentColumn->nextColumn;
+
                 delete currentColumn;
                 return;
             }            
 
         }
     }
+    throw std::invalid_argument("Node not found");
 }
 
+template <class T>
+void SparseTable<T>::deleteNode(int rowID, int columnID) 
+{
+    deleteNode(find(rowID, columnID));
+}
 
+template <class T>
+SparseNode<T>* SparseTable<T>::find(int rowID, int columnID)
+{
+    SparseNode<T>* currentRow = head;
+    SparseNode<T>* currentColumn = 0;
+    while(currentRow != 0)
+    {
+        if(currentRow->rowID != rowID)
+        {
+            currentRow = currentRow->nextRow;
+            continue;
+        }
 
+        currentColumn = currentRow;
+        while (currentColumn != 0)
+        {
+            if(currentColumn->columnID != columnID)
+            {
+                currentColumn = currentColumn->nextColumn;
+                continue;
+            }
+            else
+            {
+                // COLUMN && ROW FOUND
+                return currentColumn;
+            }            
+
+        }
+    }
+    return 0;
+  }
 }
 #endif // __SPARSE_TABLE_H__
 
