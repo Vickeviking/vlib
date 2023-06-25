@@ -29,27 +29,40 @@ public:
 
 // SKIPLIST CLASS DECLARATION //
 template <class T>
-class skiplist
+class skipList
 {
     public:
     snode<T> *header;
     T value;
     int level;
-    skiplist(uint8_t max_lvl) 
+    skipList(uint8_t max_lvl) 
     {
         MAX_LEVEL = max_lvl;
         header = new snode<T>(MAX_LEVEL, value);
         level = 0;
     }
-    ~skiplist() 
+    ~skipList() 
     {
+        clear();
         delete header;
     }
     void display();
     void displayStructure();
-    bool contains(const T &);
+    bool contains(const T &); 
+    snode<T>* search(const T &);
     void insert_element(const T &);
-    void delete_element(const T &);        
+    void delete_element(const T &);       
+    snode<T>* getHead() const; 
+    void clear();
+
+    // comparison operators
+    bool operator==(const skipList<T>& other) const{return this->value == other.value;}
+    bool operator!=(const skipList<T>& other) const{return this->value != other.value;}
+    bool operator<(const skipList<T>& other) const{return this->value < other.value;}
+    bool operator>(const skipList<T>& other) const{return this->value > other.value;}
+    bool operator<=(const skipList<T>& other) const{return this->value <= other.value;}
+    bool operator>=(const skipList<T>& other) const{return this->value >= other.value;}
+    
 };
 
 // SKIPLIST CLASS IMPLEMENTATION // 
@@ -77,7 +90,7 @@ int random_level()
 * Insert Element in Skip List
 */
 template <class T>
-void skiplist<T>::insert_element(const T &value) 
+void skipList<T>::insert_element(const T &value) 
 {
     snode<T> *x = header;	
     snode<T> *update[MAX_LEVEL + 1];
@@ -115,7 +128,7 @@ void skiplist<T>::insert_element(const T &value)
  * Delete Element from Skip List
  */
 template <class T>
-void skiplist<T>::delete_element(const T &value) 
+void skipList<T>::delete_element(const T &value) 
 {
     snode<T> *x = header;	
     snode<T> *update[MAX_LEVEL + 1];
@@ -149,7 +162,7 @@ void skiplist<T>::delete_element(const T &value)
  * Display Elements of Skip List
  */
 template <class T>
-void skiplist<T>::display() 
+void skipList<T>::display() 
 {
     const snode<T> *x = header->forw[0];
     while (x != NULL) 
@@ -166,7 +179,7 @@ void skiplist<T>::display()
  * Search Elemets in Skip List
  */
 template <class T>
-bool skiplist<T>::contains(const T &s_value) 
+bool skipList<T>::contains(const T &s_value) 
 {
     snode<T> *x = header;
     for (int i = level;i >= 0;i--) 
@@ -180,12 +193,27 @@ bool skiplist<T>::contains(const T &s_value)
     return x != NULL && x->value == s_value;
 }
 
+template <class T>
+snode<T>* skipList<T>::search(const T &s_value) 
+{
+    snode<T> *x = header;
+    for (int i = level;i >= 0;i--) 
+    {
+        while (x->forw[i] != NULL && x->forw[i]->value < s_value)
+        {
+            x = x->forw[i];
+        }
+    }
+    x = x->forw[0];
+    return x;
+}
+
 /*
  * Display Elements of Skip List with Level
  */
 
 template <class T>
-void skiplist<T>::displayStructure() 
+void skipList<T>::displayStructure() 
 {
     for (int i = 0;i <= level;i++) 
     {
@@ -203,6 +231,31 @@ void skiplist<T>::displayStructure()
         }
         cout << endl;
     }
+}
+
+
+template <class T>
+snode<T>* skipList<T>::getHead() const
+{
+    return header;
+}
+
+/*
+ * Clear Elements of Skip List
+ */
+
+template <class T>
+void skipList<T>::clear() 
+{
+    snode<T> *x = header->forw[0];
+    while (x != NULL) 
+    {
+        snode<T> *next = x->forw[0];
+        delete x;
+        x = next;
+    }
+    memset(header->forw, 0, sizeof(snode<T>*) * (MAX_LEVEL + 1));
+    level = 0;
 }
 }
 #endif

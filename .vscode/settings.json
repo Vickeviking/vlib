@@ -55,6 +55,30 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "files.associations": {
-    "__node_handle": "cpp"
+    "__node_handle": "cpp",
+    "__config": "cpp",
+    "__hash_table": "cpp",
+    "__tuple": "cpp",
+    "array": "cpp",
+    "complex": "cpp",
+    "functional": "cpp",
+    "memory_resource": "cpp",
+    "hash_map": "cpp",
+    "iomanip": "cpp",
+    "istream": "cpp",
+    "locale": "cpp",
+    "memory": "cpp",
+    "mutex": "cpp",
+    "ostream": "cpp",
+    "string": "cpp",
+    "tuple": "cpp",
+    "unordered_map": "cpp",
+    "utility": "cpp",
+    "variant": "cpp",
+    "vector": "cpp",
+    "type_traits": "cpp",
+    "__string": "cpp",
+    "stack": "cpp",
+    "queue": "cpp"
   }
 }

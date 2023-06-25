@@ -1,5 +1,5 @@
-#ifndef __SPARSE_TABLE_H__
-#define __SPARSE_TABLE_H__
+#ifndef __SLL_SPARSE_TABLE_H__
+#define __SLL_SPARSE_TABLE_H__
 #include <iostream>
 
 namespace VLIB{
@@ -27,17 +27,14 @@ public:
 
 /// Sparse Table ///
 template <class T>
-class SparseTable
+class SLLSparseTable
 {
 protected:
     SparseNode<T>* head;
 
 public:
-    SparseTable()
-    {
-        head = new SparseNode<T>(1, 1, 10, 0, 0);
-    }
-    ~SparseTable();
+    SLLSparseTable(){head = new SparseNode<T>(1, 1, 10, 0, 0);}
+    ~SLLSparseTable();
     void printAll() const;
     void printRow(int rowID) const;
     void printColumn(int columnID) const;
@@ -49,7 +46,7 @@ public:
 };
 
 template <class T>
-SparseTable<T>::~SparseTable()
+SLLSparseTable<T>::~SLLSparseTable()
 {
     // for each row delete all the columns
 
@@ -71,7 +68,7 @@ SparseTable<T>::~SparseTable()
 }
 
 template <class T>
-void SparseTable<T>::printAll() const
+void SLLSparseTable<T>::printAll() const
 {
     SparseNode<T>* currentRow = head;
 
@@ -91,7 +88,7 @@ void SparseTable<T>::printAll() const
 }
 
 template <class T>
-void SparseTable<T>::printRow(int rowID) const
+void SLLSparseTable<T>::printRow(int rowID) const
 {
     SparseNode<T>* currentRow = head;
 
@@ -115,7 +112,7 @@ void SparseTable<T>::printRow(int rowID) const
 }
 
 template <class T>
-void SparseTable<T>::printColumn(int columnID) const
+void SLLSparseTable<T>::printColumn(int columnID) const
 {
     SparseNode<T>* currentRow = head;
 
@@ -137,7 +134,7 @@ void SparseTable<T>::printColumn(int columnID) const
 }
 
 template <class T>
-void SparseTable<T>::insertNode(int rowID, int columnID, const T& el)
+void SLLSparseTable<T>::insertNode(int rowID, int columnID, const T& el)
 {
     SparseNode<T>* currentRow = head;
     SparseNode<T>* currentColumn = 0;
@@ -265,7 +262,7 @@ void SparseTable<T>::insertNode(int rowID, int columnID, const T& el)
 }
 
 template <class T>
-void SparseTable<T>::deleteNode(SparseNode<T> * nodeToDelete)
+void SLLSparseTable<T>::deleteNode(SparseNode<T> * nodeToDelete)
 {
     SparseNode<T>* currentRow = head;
     SparseNode<T>* previousRow = 0;
@@ -328,13 +325,13 @@ void SparseTable<T>::deleteNode(SparseNode<T> * nodeToDelete)
 }
 
 template <class T>
-void SparseTable<T>::deleteNode(int rowID, int columnID) 
+void SLLSparseTable<T>::deleteNode(int rowID, int columnID) 
 {
     deleteNode(find(rowID, columnID));
 }
 
 template <class T>
-SparseNode<T>* SparseTable<T>::find(int rowID, int columnID)
+SparseNode<T>* SLLSparseTable<T>::find(int rowID, int columnID)
 {
     SparseNode<T>* currentRow = head;
     SparseNode<T>* currentColumn = 0;
@@ -365,6 +362,6 @@ SparseNode<T>* SparseTable<T>::find(int rowID, int columnID)
     return 0;
   }
 }
-#endif // __SPARSE_TABLE_H__
+#endif // __SLL_SPARSE_TABLE_H__
 
 
