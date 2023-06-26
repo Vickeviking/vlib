@@ -1,0 +1,9 @@
+#ifndef __SUBSTRINGEXTRACTION_H__
+#define __SUBSTRINGEXTRACTION_H__
+
+namespace VLIB
+{
+
+}
+
+#endif // __SUBSTRINGEXTRACTION_H__
