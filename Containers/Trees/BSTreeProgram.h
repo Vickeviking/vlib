@@ -44,15 +44,43 @@ void startBSTreeProgram()
         switch (choice) {
             case 1: 
                     BSTreeClearConsole();
-                    cout << "How many integers to insert:  ";
+                    cout << "(1) Insert custom element, (2) Insert random elements " << endl;
+                    cout << "Enter your choice: ";
                     cin >> el;
-                    // add the integers to the tree
-                    for (int i = 0; i < el; i++)
+                    if(el == 1)
                     {
-                        int temp;
-                        cin >> temp;
-                        tree.insert(temp);
+                        cout << "How many integers to insert:  ";
+                        cin >> el;
+                        // add the integers to the tree
+                        for (int i = 0; i < el; i++)
+                        {
+                            int temp;
+                            cin >> temp;
+                            // check if the input exists
+                            if(tree.search(temp) == 0)
+                                tree.insert(temp);
+                        }
                     }
+                    else
+                    {
+                        cout << "How many integers to insert:  ";
+                        cin >> el;
+                        cout << "" << endl;
+                        int min, max;
+                        cout << "Enter lower bound: ";
+                        cin >> min;
+                        cout << "" << endl;
+                        cout << "Enter upper bound: ";
+                        cin >> max;
+
+                        for (int i = 0; i < el; i++)
+                        {
+                            int temp = min + (rand() % (int)(max - min + 1));
+                            if(tree.search(temp) == 0)
+                                tree.insert(temp);
+                        }
+                    }
+
                     BSTreeClearConsole();
                     cout << "Inserted " << el << " elements "<< "\n" << endl;
                     break;
@@ -97,6 +125,8 @@ void startBSTreeProgram()
                         exit(1);
                     break;
             case 5: tree.clear();
+                    BSTreeClearConsole();
+                    cout << "Tree Cleared! \n" << endl;
                     break;
             case 6: BSTreeClearConsole();
                     cout << "Tree Balanced! \n" << endl;
