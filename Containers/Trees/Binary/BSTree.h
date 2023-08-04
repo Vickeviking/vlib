@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+
 using namespace std;
 
 namespace VLIB{
@@ -42,7 +43,7 @@ public:
 *  Binary Search Tree Node
 */
 template<class T>
-class BSTNode {
+class BSTNode{
 public:
     BSTNode() {
         left = right = 0;
@@ -58,13 +59,13 @@ public:
 *  Binary Search Tree
 */
 template<class T>
-class BSTree {
+class BSTree  {
 public:
     BSTree() {
         root = 0;
 }
-~BSTree() {clear(); }
-void clear() {clear(root); root = 0;}
+~BSTree() {Clear(); }
+void Clear() {clear(root); root = 0;}
 bool isEmpty() const {return root == 0;}
 void preorder() {preorder(root);}
 void inorder() {inorder(root);}
@@ -81,10 +82,11 @@ void insert(const T&);
 void deleteByMerging(BSTNode<T>*&); 
 void findAndDeleteByMerging(const T&); 
 void deleteByCopying(BSTNode<T>*&); 
+void balance(){balance(getInOrderVector());}
 void balance(vector<T>*);
-void printHor();
-void printHor(const string &prefix, BSTNode<T> *parent, bool isLeft);
-void TreePrinter(const BSTree<T>& tree);
+
+
+// Getters
 BSTNode<T>* getRoot() const { return root; }
 
 protected:
@@ -101,9 +103,6 @@ protected:
         cout << p->el << ' ';
     }
 
-    int height(const BSTNode<T> *root);
-    int getcol(int h);
-    void printTree(int **M, const BSTNode<T> *root, int col, int row, int height);
 };
 
 /*
@@ -185,32 +184,6 @@ void BSTree<T>::balanceRecursive(vector<T>* data, int start, int end) {
     balanceRecursive(data, middle + 1, end);
 }
 
-
-template <class T>
-int BSTree<T>::height(const BSTNode<T> *root) {
-    if (root == NULL)
-        return 0;
-    return max(height(root->left), height(root->right)) + 1;
-}
-
-template <class T>
-int BSTree<T>::getcol(int h) {
-    if (h == 1)
-        return 1;
-    return getcol(h - 1) + getcol(h - 1) + 1;
-}
- 
-template <class T>
-void BSTree<T>::printTree(int **M, const BSTNode<T> *root, int col, int row, int height) {
-    if (root == NULL)
-        return;
-    
-    int numWidth = std::to_string(root->el).length(); // Get the width of the number
-    
-    M[row][col] = root->el;
-    printTree(M, root->left, col - pow(2, height - 2), row + 1, height - 1);
-    printTree(M, root->right, col + pow(2, height - 2), row + 1, height - 1);
-}
 
 /*
 *  Public Methods
@@ -435,82 +408,12 @@ template<class T>
 void BSTree<T>::balance(vector<T>* data) {
 
     // Clear the tree
-    clear();
+    Clear();
     // Build a balanced tree from the sorted array
     balanceRecursive(data, 0, data->size() - 1);
 
 }
 
-
-template<class T>
-void BSTree<T>::printHor()
-{
-    if(root != nullptr)
-        printHor("", root, false);
-    else
-        cout << "Empty tree!" << endl;
-}
-
-
-
-template<class T>
-void BSTree<T>::printHor(const string &prefix, BSTNode<T> *parent, bool isLeft)
-{
-    if (parent != nullptr)
-    {
-        cout << prefix;
-
-        cout << (isLeft ? "L├──" : "R└──");
-
-        // print the value of the node
-        cout << parent->el << endl;
-
-        // enter the next tree level - left and right branch
-        printHor(prefix + (isLeft ? " │   " : "    "), parent->left, true);
-        printHor(prefix + (isLeft ? " │   " : "    "), parent->right, false);
-    }
-}
- 
-
-template <class T>
-void BSTree<T>::TreePrinter(const BSTree<T>& tree) {
-    int h = height(tree.root);
-    int col = getcol(h);
-    int **M = new int*[h];
-    for (int i = 0; i < h; i++) {
-        M[i] = new int[col];
-    }
-    printTree(M, tree.root, col / 2, 0, h);
-    
-    int maxNumWidth = 0; // Maximum width of numbers in the tree
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < col; j++) {
-            if (M[i][j] != 0) {
-                int numWidth = std::to_string(M[i][j]).length();
-                if (numWidth > maxNumWidth) {
-                    maxNumWidth = numWidth;
-                }
-            }
-        }
-    }
-    
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < col; j++) {
-            if (M[i][j] == 0) {
-                std::cout << std::setw(maxNumWidth + 1) << " ";
-            } else {
-                std::cout << std::setw(maxNumWidth) << M[i][j] << " ";
-            }
-        }
-        std::cout << std::endl;
-    }
-    
-    // Clean up the allocated memory
-    for (int i = 0; i < h; i++) {
-        delete[] M[i];
-    }
-    delete[] M;
-}
 
 } /* namespace closing bracket */
 
