@@ -1,8 +1,0 @@
-#ifndef __STRINGCONCATENATION_H__
-#define __STRINGCONCATENATION_H__
-
-namespace VLIB{
-
-}
-
-#endif // __STRINGCONCATENATION_H__
