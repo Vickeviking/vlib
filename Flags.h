@@ -16,6 +16,8 @@ enum selfOrganizingListFlags
     NO_FLAG
 };
 
+
+
 }
 
 #endif // FLAGS_H
