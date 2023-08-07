@@ -1,0 +1,3 @@
+/Users/vango/Programming/vlib/build/CMakeFiles/VLIB.dir
+/Users/vango/Programming/vlib/build/CMakeFiles/edit_cache.dir
+/Users/vango/Programming/vlib/build/CMakeFiles/rebuild_cache.dir

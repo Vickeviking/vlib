@@ -118,7 +118,7 @@ class AVLTree{
                     node = doubleLeft(node);
             }
         }
-        node->height = max(height(node->left), height(node->right))+1;
+        node->height = std::max(height(node->left), height(node->right))+1;
         return node;
     }
 
@@ -158,7 +158,7 @@ class AVLTree{
         if(node == NULL)
             return node;
 
-        node->height = max(height(node->left), height(node->right))+1;
+        node->height = std::max(height(node->left), height(node->right))+1;
 
         // If node is unbalanced
         // If left node is deleted, right case
@@ -209,8 +209,8 @@ class AVLTree{
 			AVLNode<T>* left = node->left;
 			node->left = left->right;
 			left->right = node;
-			node->height = max(height(node->left), height(node->right)) + 1;
-			left->height = max(height(left->left), node->height) + 1;
+			node->height = std::max(height(node->left), height(node->right)) + 1;
+			left->height = std::max(height(left->left), node->height) + 1;
 			return left;
 		}
 		return node;
@@ -223,8 +223,8 @@ class AVLTree{
 		    AVLNode<T>* right = node->right;
 		    node->right = right->left;
 		    right->left = node;
-		    node->height = max(height(node->left), height(node->right)) + 1;
-		    right->height = max(height(node->right), node->height) + 1;
+		    node->height = std::max(height(node->left), height(node->right)) + 1;
+		    right->height = std::max(height(node->right), node->height) + 1;
 		    return right;
             }
             return node;

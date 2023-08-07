@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#include "BSTree.h"
+#include "../BSTree.h"
 
 /*
 GENERAL INFO

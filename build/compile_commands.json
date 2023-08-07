@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/vango/Programming/vlib/build",
+  "command": "/usr/bin/clang++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -std=gnu++17 -o CMakeFiles/VLIB.dir/src/main.cpp.o -c /Users/vango/Programming/vlib/src/main.cpp",
+  "file": "/Users/vango/Programming/vlib/src/main.cpp"
+}
+]

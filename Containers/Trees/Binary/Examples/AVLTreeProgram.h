@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <vector>
 
-#include "AVLTree.h"
+#include "../AVLTree.h"
 
 /*
 GENERAL INFO
