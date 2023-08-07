@@ -5,11 +5,21 @@
 #include <cmath>
 #include <cstring>
 
+/*
+    A skip list is a data structure that allows fast search within an ordered sequence of elements.
+    Fast search is made possible by maintaining a linked hierarchy of subsequences, each skipping over fewer elements.
+    Searching starts in the sparsest subsequence until two consecutive elements have been found, one smaller and one larger than or equal to the element searched for.
+    Via the linked hierarchy, these two elements link to elements of the next sparsest subsequence, where searching is continued until finally we are searching in the full sequence.
+    The elements that are skipped over may be chosen probabilistically or deterministically, with the former being more common.
+
+    Initialization:
+        skipList<int> list;
+*/
+
 namespace VLIB {
 
 uint8_t MAX_LEVEL = 6;
 const float P = 0.5;
-using namespace std;
 
 // NODE Class DECLARATION //
 template <class T>
@@ -167,12 +177,12 @@ void skipList<T>::display()
     const snode<T> *x = header->forw[0];
     while (x != NULL) 
     {
-        cout << x->value;
+        std::cout << x->value;
         x = x->forw[0];
         if (x != NULL)
-            cout << " - ";
+            std::cout << " - ";
     }
-    cout <<endl;
+    std::cout <<std::endl;
 }
  
 /*
@@ -218,18 +228,18 @@ void skipList<T>::displayStructure()
     for (int i = 0;i <= level;i++) 
     {
         snode<T> *x = header->forw[i];
-        cout << "Level " << i << ": ";
+        std::cout << "Level " << i << ": ";
         while (x != NULL) 
         {
-            cout << x->value;
+            std::cout << x->value;
             x = x->forw[i];
             if (x != NULL)
-                cout << " - ";
+                std::cout << " - ";
 
             // is there numbers between the last number and the next number in lower levels? then print them as a dash
 
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 

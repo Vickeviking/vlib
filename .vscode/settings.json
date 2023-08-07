@@ -85,7 +85,9 @@
     "deque": "cpp",
     "ios": "cpp",
     "list": "cpp",
-    "system_error": "cpp"
+    "system_error": "cpp",
+    "iosfwd": "cpp",
+    "iostream": "cpp"
   },
   "C_Cpp_Runner.useLinkTimeOptimization": false
 }

@@ -5,6 +5,15 @@
 #include <iostream>
 #include "../../../flags.h"
 
+
+/*
+    A doubly linked list, which is a list that is made up of nodes that have a pointer to the next node and the previous node.
+    The list is made up of nodes that are linked together in a sequential manner.
+
+    Initialization:
+        DLList<int> list;
+*/
+
 namespace VLIB{
 /// NODE CLASS ///
 

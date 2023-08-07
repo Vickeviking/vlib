@@ -3,20 +3,24 @@
 
 #include <vector>
 
-using namespace std;
+/*
+    Max Heap Tree is a complete binary tree where the value of each node is greater than or equal to the value of its children.
+    The root node will always contain the largest value.
+*/
+
 namespace VLIB{
 
 template <class T>
 class MaxHeapTree{
 private:
-    vector<T> _vector;
+    std::vector<T> _vector;
     void BubbleDown(int index);
     void BubbleUp(int index);
     void Heapify();
 
 public:
     MaxHeapTree(T* array, int length);
-    MaxHeapTree(const vector<T>& vector);
+    MaxHeapTree(const std::vector<T>& vector);
     MaxHeapTree();
 
     void Insert(T value);
@@ -24,7 +28,7 @@ public:
     void DeleteMax();
 
     // Helper function for visualization
-    const vector<T> getHeapVector() const{ return _vector; }
+    const std::vector<T> getHeapVector() const{ return _vector; }
     const bool empty() const { return _vector.empty(); }
 };
 
@@ -40,7 +44,7 @@ MaxHeapTree<T>::MaxHeapTree(T* array, int length) : _vector(length)
 }
 
 template <class T>
-MaxHeapTree<T>::MaxHeapTree(const vector<T>& vector) : _vector(vector)
+MaxHeapTree<T>::MaxHeapTree(const std::vector<T>& vector) : _vector(vector)
 {
     Heapify();
 }

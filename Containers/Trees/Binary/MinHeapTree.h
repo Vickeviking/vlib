@@ -5,20 +5,23 @@
 
 #include <vector>
 
-using namespace std;
+/*
+    Min Heap Tree is a complete binary tree where the value of each node is less than or equal to the value of its children.
+    The root node will always contain the smallest value.
+*/
 namespace VLIB{
 
 template <class T>
 class MinHeapTree{
 private:
-    vector<T> _vector;
+    std::vector<T> _vector;
     void BubbleDown(int index);
     void BubbleUp(int index);
     void Heapify();
 
 public:
     MinHeapTree(T* array, int lenght);
-    MinHeapTree(const vector<T>& vector);
+    MinHeapTree(const std::vector<T>& vector);
     MinHeapTree();
 
     void Insert(T value);
@@ -26,7 +29,7 @@ public:
     void DeleteMin();
 
     // Helper function for visualization
-    const vector<T> getHeapVector() const{ return _vector; }
+    const std::vector<T> getHeapVector() const{ return _vector; }
     const bool empty() const { return _vector.empty(); }
 };
 
@@ -42,7 +45,7 @@ MinHeapTree<T>::MinHeapTree(T* array, int length) : _vector(length)
 }
 
 template <class T>
-MinHeapTree<T>::MinHeapTree(const vector<T>& vector) : _vector(vector)
+MinHeapTree<T>::MinHeapTree(const std::vector<T>& vector) : _vector(vector)
 {
     Heapify();
 }

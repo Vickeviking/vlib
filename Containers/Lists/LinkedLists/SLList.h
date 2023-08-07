@@ -4,6 +4,14 @@
 #include <iostream>
 #include "../../../flags.h"
 
+/*
+    A singly linked list, which is a list that is made up of nodes that have a pointer to the next node.
+    The list is made up of nodes that are linked together in a sequential manner.
+
+    Initialization:
+        SLList<int> list;
+*/
+
 namespace VLIB {
 
 /// NODE CLASS ///

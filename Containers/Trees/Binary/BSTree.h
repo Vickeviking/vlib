@@ -8,7 +8,12 @@
 #include <iostream>
 #include <iomanip>
 
-using namespace std;
+/*
+    A binary search tree is a binary tree in which for each node, value of all the nodes in left subtree is lesser or equal and value of all the nodes in right subtree is greater.
+
+    Initialization:
+        BSTree<int> bst;
+*/
 
 namespace VLIB{
 
@@ -16,12 +21,12 @@ namespace VLIB{
 * Stack
 */
 template<class T> 
-class Stack : public stack<T> 
+class Stack : public std::stack<T> 
 {
     public:
     T pop() {
         T tmp = this->top();
-        stack<T>::pop();
+        std::stack<T>::pop();
     return tmp; }
 }; 
 
@@ -29,11 +34,11 @@ class Stack : public stack<T>
 * Queue
 */
 template<class T>
-class Queue : public queue<T> {
+class Queue : public std::queue<T> {
 public:
     T dequeue() {
         T tmp = this->front();
-        queue<T>::pop();
+        std::queue<T>::pop();
     return tmp; }
     void enqueue(const T& el) {
         push(el);
@@ -77,13 +82,13 @@ void iterativePreorder();
 void iterativeInorder();
 void iterativePostorder();
 void MorrisInorder();
-vector<T>* getInOrderVector() const;
+std::vector<T>* getInOrderVector() const;
 void insert(const T&);
 void deleteByMerging(BSTNode<T>*&); 
 void findAndDeleteByMerging(const T&); 
 void deleteByCopying(BSTNode<T>*&); 
 void balance(){balance(getInOrderVector());}
-void balance(vector<T>*);
+void balance(std::vector<T>*);
 
 
 // Getters
@@ -98,9 +103,9 @@ protected:
     void inorder(BSTNode<T>*);
     void postorder(BSTNode<T>*);
     int countNodes(BSTNode<T>*);
-    void balanceRecursive(vector<T>* data, int start, int end);
+    void balanceRecursive(std::vector<T>* data, int start, int end);
     virtual void visit(BSTNode<T>* p) {
-        cout << p->el << ' ';
+        std::cout << p->el << ' ';
     }
 
 };
@@ -169,7 +174,7 @@ int BSTree<T>::countNodes(BSTNode<T> *p) {
 }
 
 template<class T>
-void BSTree<T>::balanceRecursive(vector<T>* data, int start, int end) {
+void BSTree<T>::balanceRecursive(std::vector<T>* data, int start, int end) {
     if (start > end)
         return;
 
@@ -289,11 +294,11 @@ void BSTree<T>::MorrisInorder() { // no stack or threads used!
         }
 }
 template<class T>
-vector<T>* BSTree<T>::getInOrderVector() const {
+std::vector<T>* BSTree<T>::getInOrderVector() const {
     // Use Morris Inorder traversal to get the array, instead of visit(p), add p->el to the array
 
     // Create the vector on the heap
-    vector<T>* v = new vector<T>();
+    std::vector<T>* v = new std::vector<T>();
 
     BSTNode<T>* p = root;
     BSTNode<T>* tmp;
@@ -377,8 +382,8 @@ void BSTree<T>::findAndDeleteByMerging(const T& el) {
               deleteByMerging(prev->left);
          else deleteByMerging(prev->right);
     else if (root != 0)
-         cout << "element" << el << "is not in the tree\n";
-    else cout << "the tree is empty\n";
+         std::cout << "element" << el << "is not in the tree\n";
+    else std::cout << "the tree is empty\n";
 }
 
 template<class T>
@@ -405,7 +410,7 @@ void BSTree<T>::deleteByCopying(BSTNode<T>*& node) {
 
 
 template<class T>
-void BSTree<T>::balance(vector<T>* data) {
+void BSTree<T>::balance(std::vector<T>* data) {
 
     // Clear the tree
     Clear();
