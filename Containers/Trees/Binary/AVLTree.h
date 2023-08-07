@@ -8,16 +8,18 @@
 #include <iostream>
 #include <stack>
 
-using namespace std;
-
 /*
+    An AVL tree is a self-balancing binary search tree.
+    It was the first such data structure to be invented.
+    In an AVL tree, the heights of the two child subtrees of any node differ by at most one;
+    if at any time they differ by more than one, rebalancing is done to restore this property.
+    Lookup, insertion, and deletion all take O(log n) time in both the average and worst cases,
+    where n is the number of nodes in the tree prior to the operation.
+    Insertions and deletions may require the tree to be rebalanced by one or more tree rotations.
 
-AVL Tree
-
-The withcoming AVLTreeProgram can be used to interact with the AVLTree class
-
+    Initialization:
+        AVLTree<int> tree
 */
-
 namespace VLIB{
 template <class T>
 struct AVLNode{
@@ -290,7 +292,7 @@ class AVLTree{
         if(node == NULL)
             return;
         inorder(node->left);
-        cout << node->data << " ";
+        std::cout << node->data << " ";
         inorder(node->right);
     }
 
@@ -299,7 +301,7 @@ class AVLTree{
     {
         if(node == NULL)
             return;
-        cout << node->data << " ";
+        std::cout << node->data << " ";
         preorder(node->left);
         preorder(node->right);
     }
@@ -311,7 +313,7 @@ class AVLTree{
             return;
         postorder(node->left);
         postorder(node->right);
-        cout << node->data << " ";
+        std::cout << node->data << " ";
     }
 
 
