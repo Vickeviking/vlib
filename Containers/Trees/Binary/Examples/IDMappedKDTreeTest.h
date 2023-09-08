@@ -23,7 +23,6 @@ public:
         // Insert data into the KD-tree
         kdTree.insert({1.0, 2.0, 3.0}, PlayerData("John", 1001));
         kdTree.insert({4.0, 5.0, 6.0}, PlayerData("Alice", 1002));
-        // ... insert more data points ...
 
         // Perform queries on the KD-tree
         std::array<double, 3> queryPoint = {2.0, 4.0, 5.0};
